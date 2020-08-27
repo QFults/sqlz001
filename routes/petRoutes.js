@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Pet } = require('../models')
+const { Pet, User } = require('../models')
 
 // GET all pets
 router.get('/pets', (req, res) => {
@@ -10,7 +10,7 @@ router.get('/pets', (req, res) => {
 
 // GET one pet
 router.get('/pets/:id', (req, res) => {
-  Pet.findOne({ where: { id: req.params.id } })
+  Pet.findOne({ where: { id: req.params.id }, include: [User] })
     .then(pet => res.json(pet))
     .catch(err => console.log(err))
 })
